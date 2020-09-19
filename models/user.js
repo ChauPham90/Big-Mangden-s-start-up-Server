@@ -51,6 +51,13 @@ userSchema
   });
 
 userSchema.methods = {
+<<<<<<< HEAD
+=======
+  authenticate: function (password) {
+    return this.encryptPassword(password) === this.hashed_password;
+  },
+
+>>>>>>> 65c70024afa43547c4cb93c23b5a94c68256b066
   encryptPassword: function (password) {
     if (!password) return "";
     try {
