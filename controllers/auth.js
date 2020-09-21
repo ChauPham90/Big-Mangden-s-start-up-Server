@@ -109,3 +109,22 @@ exports.requireSignin = expressJwt({
   algorithms: ["HS256"], // added later
   userProperty: "auth",
 });
+
+exports.isAuth = (req, res, next) => {
+  let user = req.profile && req.auth && req.auth._id == req.profile._id;
+  if (!user) {
+    return res.status(403).json({
+      error: "Access denied",
+    });
+  }
+  next();
+};
+
+exports.isAmin = (req, res, next) => {
+  if (req.profile.role == 0) {
+    return res.status(403).json({
+      error: "Admin sourced. Acces denied",
+    });
+  }
+  next();
+};

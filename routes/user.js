@@ -3,9 +3,9 @@ const router = express.Router();
 const { userById } = require("../controllers/user");
 const { userSignupValidator } = require("../validator");
 
-const { requireSignin } = require("../controllers/auth");
+const { requireSignin, isAuth, isAmin } = require("../controllers/auth");
 
-router.get("/secret/:userId", requireSignin, (req, res) => {
+router.get("/secret/:userId", requireSignin, isAmin, isAuth, (req, res) => {
   res.json({ user: req.profile });
 });
 
