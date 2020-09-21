@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/user");
+const categoryRoute = require("./routes/category");
 const expressValidator = require("express-validator");
 
 const app = express();
@@ -34,7 +35,7 @@ app.use(expressValidator());
 // routes middleware
 app.use(authRoute);
 app.use(userRoute);
-
+app.use(categoryRoute);
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => console.log(`listening on port ${port}`));

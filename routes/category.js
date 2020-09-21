@@ -1,13 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const { userById } = require("../controllers/user");
-const { userSignupValidator } = require("../validator");
 
 const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
+const { create } = require("../controllers/category");
 
-router.get("/secret/:userId", requireSignin, isAdmin, isAuth, (req, res) => {
-  res.json({ user: req.profile });
-});
+router.post("/category/create/:userId", requireSignin, isAdmin, isAuth, create);
 
 router.param("userId", userById);
 
