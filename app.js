@@ -3,14 +3,17 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+
 const dotenv = require("dotenv");
+const expressValidator = require("express-validator");
+const app = express();
+dotenv.config();
+
+//routes
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/user");
 const categoryRoute = require("./routes/category");
-const expressValidator = require("express-validator");
-
-const app = express();
-dotenv.config();
+const productRoute = require("./routes/product");
 
 //db connection
 mongoose
@@ -36,6 +39,7 @@ app.use(expressValidator());
 app.use(authRoute);
 app.use(userRoute);
 app.use(categoryRoute);
+app.use(productRoute);
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => console.log(`listening on port ${port}`));
