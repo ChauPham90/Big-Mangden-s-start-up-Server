@@ -4,6 +4,7 @@ const expressJwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const user = require("../models/user");
+const Product = require("../models/product");
 
 dotenv.config();
 
