@@ -4,6 +4,7 @@ const expressJwt = require("express-jwt");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 const user = require("../models/user");
+const Product = require("../models/product");
 
 dotenv.config();
 
@@ -120,7 +121,7 @@ exports.isAuth = (req, res, next) => {
   next();
 };
 
-exports.isAmin = (req, res, next) => {
+exports.isAdmin = (req, res, next) => {
   if (req.profile.role == 0) {
     return res.status(403).json({
       error: "Admin sourced. Acces denied",
