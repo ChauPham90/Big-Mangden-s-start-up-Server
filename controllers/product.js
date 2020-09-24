@@ -18,7 +18,8 @@ exports.productById = (req, res, next, id) => {
     });
 };
 
-exports.read = (req, res) => {
+exports.readProduct = (req, res) => {
+  //dont want to send req of photo to the sever because photo has a big size
   req.product.photo = undefined;
   return res.json(req.product);
 };
