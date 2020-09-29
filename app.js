@@ -44,6 +44,7 @@ app.use(authRoute);
 app.use(userRoute);
 app.use(categoryRoute);
 app.use(productRoute);
+app.use(productRoute);
 
 const port = process.env.PORT || 8000;
 
