@@ -7,9 +7,15 @@ const {
   create,
   remove,
   update,
+  listRelated,
+  list,
+  listCategory,
+  listBySearch,
 } = require("../controllers/product");
 
 const { requireSignin, isAuth, isAdmin } = require("../controllers/auth");
+
+//product 's route
 router.get("/product/:productId", readProduct);
 router.post("/product/create/:userId", requireSignin, isAdmin, isAuth, create);
 router.delete(
@@ -26,6 +32,10 @@ router.put(
   isAuth,
   update
 );
+router.get("/products", list);
+router.get("/products/related/:productId", listRelated);
+router.get("/products/categories", listCategory);
+router.post("/products/by/search", listBySearch);
 router.param("userId", userById);
 router.param("productId", productById);
 
