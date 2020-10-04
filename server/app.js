@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const compression = require("compression");
+const cors = require("cors");
 
 const dotenv = require("dotenv");
 const expressValidator = require("express-validator");
@@ -38,6 +39,7 @@ app.use(cookieParser());
 app.use(expressValidator());
 app.use(helmet());
 app.use(compression());
+app.use(cors());
 
 // routes middleware
 app.use(authRoute);
