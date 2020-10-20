@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import Layout from "../core/Layout";
-import API from '../config'
+import { API } from "../config";
 
 const Signup = () => {
   const [values, setValues] = useState({
@@ -17,7 +17,10 @@ const Signup = () => {
   const { name, email, password } = values;
 
   const signUp = (a, b, c) => {
-fetch(`${API}`)
+    fetch(`${API}/signup`,{
+      //write method
+      
+    });
   };
 
   const clickSubmit = (e) => {
