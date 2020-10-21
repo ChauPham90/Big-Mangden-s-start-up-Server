@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import Layout from "../core/Layout";
-import API from '../config'
+import { API } from "../config";
 
 const Signup = () => {
   const [values, setValues] = useState({
@@ -16,13 +16,26 @@ const Signup = () => {
 
   const { name, email, password } = values;
 
-  const signUp = (a, b, c) => {
-fetch(`${API}`)
+  const signUp = (data) => {
+    fetch(`http://penguin.linux.test:8000/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   const clickSubmit = (e) => {
     e.preventDefault();
-    signUp(name, email, password);
+    signUp({ name, email, password });
   };
 
   const signUpForm = () => (
@@ -71,7 +84,6 @@ fetch(`${API}`)
     <Layout
       title="Sign up Page"
       description=" Sign up to Node React Big Mang Den App"
-      children={process.env.REACT_APP_API_URL}
       className="container col-xl-6 offset-xl-3 "
     >
       {signUpForm()}

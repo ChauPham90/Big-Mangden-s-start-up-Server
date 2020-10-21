@@ -41,6 +41,11 @@ app.use(helmet());
 app.use(compression());
 app.use(cors());
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 // routes middleware
 app.use(authRoute);
 app.use(userRoute);
