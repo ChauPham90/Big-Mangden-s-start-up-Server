@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import Layout from "../core/Layout";
-import API from '../config'
+import { API } from "../config";
 
 const Signup = () => {
   const [values, setValues] = useState({
@@ -16,13 +16,22 @@ const Signup = () => {
 
   const { name, email, password } = values;
 
-  const signUp = (a, b, c) => {
-fetch(`${API}`)
+  const signUp = (user) => {
+    fetch(`${API}signup`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((response) => response.json())
+      .catch((err) => console.log(err));
   };
 
   const clickSubmit = (e) => {
     e.preventDefault();
-    signUp(name, email, password);
+    signUp({ name, email, password });
   };
 
   const signUpForm = () => (
