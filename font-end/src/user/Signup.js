@@ -1,23 +1,26 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import Layout from "../core/Layout";
 import { API } from "../config";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [values, setValues] = useState({
     name: "",
     email: "",
     password: "",
+    error: "",
+    success: false,
   });
 
   const handleChange = (name) => (e) => {
-    setValues({ ...values, [name]: e.target.value });
+    setValues({ ...values, error: false, [name]: e.target.value });
   };
 
-  const { name, email, password } = values;
+  const { name, email, password, success, error } = values;
 
   const signUp = (user) => {
-    fetch(`${API}signup`, {
+    return fetch(`${API}signup`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -31,7 +34,21 @@ const Signup = () => {
 
   const clickSubmit = (e) => {
     e.preventDefault();
-    signUp({ name, email, password });
+    setValues({ ...values, error: false });
+    signUp({ name, email, password }).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error, success: false });
+      } else {
+        setValues({
+          ...values,
+          name: "",
+          email: "",
+          password: "",
+          error: "",
+          success: true,
+        });
+      }
+    });
   };
 
   const signUpForm = () => (
@@ -42,6 +59,7 @@ const Signup = () => {
           type="name"
           placeholder="Enter name"
           onChange={handleChange("name")}
+          value={name}
         />
         <Form.Text className="text-muted"></Form.Text>
       </Form.Group>
@@ -52,6 +70,7 @@ const Signup = () => {
           type="email"
           placeholder="Enter email"
           onChange={handleChange("email")}
+          value={email}
         />
         <Form.Text className="text-muted">
           We'll never share your email with anyone else.
@@ -64,10 +83,8 @@ const Signup = () => {
           type="password"
           placeholder="Password"
           onChange={handleChange("password")}
+          value={password}
         />
-      </Form.Group>
-      <Form.Group controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
       </Form.Group>
 
       <Button variant="primary" type="submit" onClick={clickSubmit}>
@@ -76,6 +93,21 @@ const Signup = () => {
     </Form>
   );
 
+  const showError = () => {
+    return (
+      <Alert variant="danger" style={{ display: error ? "" : "none" }}>
+        {error}
+      </Alert>
+    );
+  };
+
+  const showSuccess = () => {
+    return (
+      <Alert variant="info" style={{ display: success ? "" : "none" }}>
+        New accout is created. Please <Link to="/signin">Signin</Link>
+      </Alert>
+    );
+  };
   return (
     <Layout
       title="Sign up Page"
@@ -84,7 +116,8 @@ const Signup = () => {
       className="container col-xl-6 offset-xl-3 "
     >
       {signUpForm()}
-      {JSON.stringify(values)}
+      {showError()}
+      {showSuccess()}
     </Layout>
   );
 };
