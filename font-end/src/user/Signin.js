@@ -32,9 +32,7 @@ const Signin = () => {
         if (data.error) {
           setValues({ ...values, error: data.error, loading: false });
         } else {
-          authenticate(
-            data,
-             () => {
+          authenticate(data, () => {
             setValues({
               ...values,
               redirectToReferrer: true,
@@ -86,7 +84,7 @@ const Signin = () => {
 
   const redirectUser = () => {
     if (redirectToReferrer) {
-      return <Redirect to="/home" />;
+      return <Redirect to="/" />;
     }
   };
   return (

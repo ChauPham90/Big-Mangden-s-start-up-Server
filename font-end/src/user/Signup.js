@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import Layout from "../core/Layout";
-import { API } from "../config";
+import { signUp } from "../state/auth";
 import { Link } from "react-router-dom";
 
 const Signup = () => {
@@ -18,19 +18,6 @@ const Signup = () => {
   };
 
   const { name, email, password, success, error } = values;
-
-  const signUp = (user) => {
-    return fetch(`${API}signup`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((response) => response.json())
-      .catch((err) => console.log(err));
-  };
 
   const clickSubmit = (e) => {
     e.preventDefault();

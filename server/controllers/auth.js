@@ -99,6 +99,10 @@ exports.errorHandler = (error) => {
         message = error.errorors[errorName].message;
     }
   }
+  process.on("uncaughtException", function (err) {
+    // Handle the error safely
+    console.log(err);
+  });
 
   return message;
 };
