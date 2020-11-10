@@ -35,10 +35,9 @@ export const authenticate = (data, cb) => {
   }
 };
 
-export const signout = (cb) => {
+export const signout = () => {
   if (typeof window !== "undefined") {
     localStorage.removeItem("jwt");
-    cb();
   }
   return fetch(`${API}signout`, {
     method: "GET",
@@ -47,4 +46,12 @@ export const signout = (cb) => {
       console.log(" sign out ", data);
     })
     .catch((err) => console.log(err));
+};
+
+export const isAuth = () => {
+  if (typeof window == undefined) return false;
+
+  if (localStorage.getItem("jwt")) {
+    return JSON.parse(localStorage.getItem("jwt"));
+  } else return false;
 };
