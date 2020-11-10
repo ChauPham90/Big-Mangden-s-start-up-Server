@@ -99,7 +99,6 @@ const Signup = () => {
     <Layout
       title="Sign up Page"
       description=" Sign up to Node React Big Mang Den App"
-      children={process.env.REACT_APP_API_URL}
       className="container col-xl-6 offset-xl-3 "
     >
       {signUpForm()}
